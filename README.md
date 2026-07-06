@@ -95,6 +95,7 @@ Please upload the PGP keys to a well-known keyserver like keyserver.ubuntu.com a
 - Position: CEO
 - Email address: konstantin.paragon@paragon-software.com
 - PGP key fingerprint: A9AA DBE0 3749 E333 6EC8  F124 73AA 0E2A 670C 72F0
+- File/keyserver location: https://github.com/konstantin-paragon/shim-review/blob/paragon-shim-x64-20260703/keys/konstantin.paragon%40paragon-software.com.asc
 
 *******************************************************************************
 ### Who is the secondary contact for security updates, etc.?
@@ -103,6 +104,7 @@ Please upload the PGP keys to a well-known keyserver like keyserver.ubuntu.com a
 - Position: Sr. Technical Engineer
 - Email address: Francisco.Gillett@paragon-software.com
 - PGP key fingerprint: 42B4 A0B0 B045 2744 6595  7F4D E831 D4DE 5737 A6AE
+- File/keyserver location: https://github.com/konstantin-paragon/shim-review/blob/paragon-shim-x64-20260703/keys/Francisco.Gillett%40paragon-software.com.asc
 
 *******************************************************************************
 ### Were these binaries created from the 16.1 shim release tar?
