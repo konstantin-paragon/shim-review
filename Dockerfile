@@ -2,6 +2,7 @@ FROM ubuntu:24.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV SHIM_VERSION=16.1
+ENV SHIM_TARBALL_SHA256=46319cd228d8f2c06c744241c0f342412329a7c630436fce7f82cf6936b1d603
 
 RUN apt-get update && \
     apt-get install -y \
@@ -16,7 +17,9 @@ COPY . /shim-review
 
 WORKDIR /shim-review
 
-RUN wget -q https://github.com/rhboot/shim/releases/download/${SHIM_VERSION}/shim-${SHIM_VERSION}.tar.bz2
+RUN wget -q \
+        https://github.com/rhboot/shim/releases/download/${SHIM_VERSION}/shim-${SHIM_VERSION}.tar.bz2 && \
+    echo "${SHIM_TARBALL_SHA256}  shim-${SHIM_VERSION}.tar.bz2" | sha256sum --check -
 
 RUN tar -xjf shim-${SHIM_VERSION}.tar.bz2
 
@@ -31,7 +34,7 @@ RUN make -C build-x86-64 \
     TOPDIR=.. \
     -f ../Makefile \
     POST_PROCESS_PE_FLAGS="-n" \
-    VENDOR_CERT_FILE=/shim-review/paragon_vendor_cert.cer \
+    VENDOR_CERT_FILE=/shim-review/paragon_vendor_cert.der \
     DESTDIR=/out \
     EFIDIR=paragon \
     install 2>&1 | tee /build.log
