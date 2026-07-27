@@ -278,7 +278,15 @@ UFSD allows hardware to communicate with storage media formatted to any file sys
 ### Do you use an ephemeral key for signing kernel modules?
 ### If not, please describe how you ensure that one kernel build does not load modules built for another kernel.
 *******************************************************************************
-No. We use a persistent, hardware-backed CA key stored on a HSM. The private key is non-exportable and requires PIN authentication for each signing operation. Kernel modules are signed with this same key using `scripts/sign-file`.
+No.
+For kernel module signing, we use a separate self-signed certificate chain that is independent of the Secure Boot certificate chain embedded in shim.
+The module-signing root CA certificate is included in the kernel's built-in trusted keyring. Kernel modules are signed using an end-entity module-signing certificate issued by that root CA.
+The following kernel configuration options are enabled:
+•	CONFIG_MODULE_SIG=y
+•	CONFIG_MODULE_SIG_ALL=y
+•	CONFIG_MODULE_SIG_FORCE=y
+•	CONFIG_MODVERSIONS=y
+Therefore, unsigned modules and modules whose signatures cannot be validated against a certificate trusted by the kernel are rejected.
 
 *******************************************************************************
 ### If you use vendor_db functionality of providing multiple certificates and/or hashes please briefly describe your certificate setup.
@@ -342,7 +350,10 @@ This is our first shim submission.
 ### How do you manage and protect the keys used in your shim?
 Describe the security strategy that is used for key protection. This can range from using hardware tokens like HSMs or Smartcards, air-gapped vaults, physical safes to other good practices.
 *******************************************************************************
-They're stored in an FIPS 140-2 certified HSM tokens provided by Certification Authorities.
+
+The CA certificate embedded in shim is self-signed and is managed by Paragon Software Group.
+The private keys for the self-signed Secure Boot CA and the issued code-signing certificates are generated and stored on a FIPS 140-2 certified hardware security token. The private keys are non-exportable and never leave the hardware token.
+Physical access to the hardware token and authorization to perform signing operations are restricted to a limited number of designated personnel. Signing operations require PIN authentication.
 
 *******************************************************************************
 ### Do you use EV certificates as embedded certificates in the shim?
