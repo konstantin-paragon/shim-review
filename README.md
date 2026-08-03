@@ -391,6 +391,7 @@ sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
 grub,5,Free Software Foundation,grub,2.12,https://www.gnu.org/software/grub/
 grub.ubuntu,2,Ubuntu,grub2,2.12-1ubuntu7.3,https://www.ubuntu.com/
 grub.peimage,2,Canonical,grub2,2.12-1ubuntu7.3,https://salsa.debian.org/grub-team/grub/-/blob/master/debian/patches/secure-boot/efi-use-peimage-shim.patch
+grub.paragon,1,Paragon Software Group,grub,2.12-1ubuntu7.3,https://www.paragon-software.com
 
 *******************************************************************************
 ### If shim is loading GRUB2 bootloader, which modules are built into your signed GRUB2 image?
